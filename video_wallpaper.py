@@ -41,8 +41,13 @@ while True:
     elif system_name == 'windows':
         ctypes.windll.user32.SystemParametersInfoW(20, 0, img_path, 0)
     elif system_name == 'darwin':
-        applescript.tell.app('Finder', f'set desktop picture to POSIX file "{img_path}"')
-        # os.system(f"""osascript -e 'tell application "System Events" to tell every desktop to set picture to "{img_path}"'""")
+        applescript.tell.app('Finder', f'''ignoring application responses
+        set desktop picture to POSIX file "{img_path}"
+        end ignoring''')
+        # applescript.tell.app('System Events', f'''ignoring application responses
+        # tell current desktop to set picture to "{img_path}"
+        # end ignoring''')
+        # applescript.run('do shell script "killall System\\ Events"')
     else:
         print('[!] Unknown system')
 
